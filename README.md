@@ -5,10 +5,10 @@ Originally built in C++ with a Node.js backend, this JavaScript version was deve
 This JavaScript version was created to allow seamless online access and sharing, making it easier to showcase the project without backend hosting dependencies.
 
 🚀 Live Demo
-👉 View Project on GitHub Pages
-(Replace with your actual link)
+👉 View Project on GitHub Pages:  https://chauhansaumya.github.io/RouteOptimizer-js/
 
 🔧 Features
+
 Multi-criteria optimization:
 
 📏 Distance (km)
@@ -30,5 +30,5 @@ Dijkstra’s Algorithm (converted from C++)
 
 📦 Original Project
 If you want to see the C++ backend version, check out:
-👉 RouteOptimizer (C++ + Node.js)
+👉 RouteOptimizer (C++ + Node.js): https://github.com/ChauhanSaumya/RouteOptimizer
 
