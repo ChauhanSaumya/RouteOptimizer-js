@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>RouteOpti — Multi-Criteria Route Optimizer</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f5f7fa;
+      color: #222;
+      margin: 0;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      background-color: #fff;
+      padding: 32px 40px;
+      border-radius: 12px;
+      width: 100%;
+      max-width: 480px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 28px;
+      color: #0a75c2;
+      letter-spacing: 1.1px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: #333;
+    }
+
+    select {
+      width: 100%;
+      padding: 10px 14px;
+      margin-bottom: 24px;
+      border: 1.8px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      color: #222;
+      cursor: pointer;
+      transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      background-color: #fff;
+    }
+
+    select:hover {
+      border-color: #0a75c2;
+    }
+
+    select:focus {
+      outline: none;
+      border-color: #0a75c2;
+      box-shadow: 0 0 5px #0a75c2aa;
+    }
+
+    button {
+      width: 100%;
+      padding: 14px 0;
+      background-color: #0a75c2;
+      border: none;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 18px;
+      color: #fff;
+      cursor: pointer;
+      box-shadow: 0 4px 12px #0a75c2cc;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #095a9c;
+    }
+
+    #result {
+      margin-top: 30px;
+      background-color: #f0f4f8;
+      padding: 20px;
+      border-radius: 10px;
+      white-space: pre-wrap;
+      font-family: Consolas, monospace;
+      font-size: 15px;
+      color: #222;
+      box-shadow: inset 0 0 8px #cbd6e4;
+      min-height: 100px;
+      user-select: text;
+    }
+
+    footer {
+      margin-top: 40px;
+      font-size: 14px;
+      color: #555;
+      text-align: center;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <h1>Multi-Criteria Route Optimizer</h1>
+    <form id="routeForm">
+      <label for="startCity">Start City:</label>
+      <select id="startCity" required></select>
+
+      <label for="endCity">Destination City:</label>
+      <select id="endCity" required></select>
+
+      <label for="criteria">Optimization Criteria:</label>
+      <select id="criteria" required>
+        <option value="distance">Distance</option>
+        <option value="cost">Cost</option>
+        <option value="time">Time</option>
+      </select>
+
+      <button type="submit">Get Optimized Route</button>
+    </form>
+
+    <div id="result"></div>
+  </div>
+
+  <footer>
+    Powered by Dijkstra's Algorithm
+  </footer>
+
+  <script src="dijkstra.js"></script>
+  <script>
+    const cities = [
+      "Delhi",
+      "Mumbai",
+      "Kolkata",
+      "Chennai",
+      "Bangalore",
+      "Hyderabad",
+      "Pune",
+      "Ahmedabad"
+    ];
+
+    const startCitySelect = document.getElementById('startCity');
+    const endCitySelect = document.getElementById('endCity');
+    const resultDiv = document.getElementById('result');
+
+    function populateCities() {
+      cities.forEach(city => {
+        const option1 = document.createElement('option');
+        option1.value = city;
+        option1.textContent = city;
+        startCitySelect.appendChild(option1);
+
+        const option2 = document.createElement('option');
+        option2.value = city;
+        option2.textContent = city;
+        endCitySelect.appendChild(option2);
+      });
+    }
+
+    populateCities();
+
+    document.getElementById('routeForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const startCity = startCitySelect.value;
+      const endCity = endCitySelect.value;
+      const criteria = document.getElementById('criteria').value;
+
+      if (startCity === endCity) {
+        resultDiv.textContent = "Error: Start city and destination city cannot be the same.";
+        return;
+      }
+
+      resultDiv.textContent = "Calculating route...";
+
+      setTimeout(() => {
+        const result = dijkstra(startCity, endCity, criteria);
+        resultDiv.textContent = result;
+      }, 300);
+    });
+  </script>
+</body>
+
+</html>
